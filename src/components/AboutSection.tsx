@@ -18,16 +18,16 @@ const INDEX_ITEMS: IndexItem[] = [
 
 const DEPUTY_PRINCIPALS = [
   {
-    name: "Mrs. H. M. Ranasinghe",
-    role: "Deputy Principal - Academics",
-    quote: "We strive to implement an engaging, modern curriculum that cultivates critical thinking, analytical depth, and academic brilliance in every student.",
+    name: "Mrs. M. H. Hettiarachchi",
+    role: "Deputy Principal - Administration",
+    quote: "Our goal is to maintain a seamless, safe, and resource-rich environment that supports our educators and students in their daily pursuits.",
     color: "border-l-accent",
-    image: "/images/deputy/deputy-1.png",
+    image: "/images/deputy/hettiarachchi.png",
   },
   {
     name: "Mrs. K. L. Gunawardena",
-    role: "Deputy Principal - Administration",
-    quote: "Our goal is to maintain a seamless, safe, and resource-rich environment that supports our educators and students in their daily pursuits.",
+    role: "Deputy Principal - Academics",
+    quote: "We strive to implement an engaging, modern curriculum that cultivates critical thinking, analytical depth, and academic brilliance in every student.",
     color: "border-l-primary",
     image: "/images/deputy/deputy-2.png",
   },
