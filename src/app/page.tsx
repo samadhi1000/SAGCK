@@ -43,7 +43,7 @@ export default function Home() {
           {/* Group 1 */}
           <div className="ticker-group">
             <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-              <span className="text-accent/60">♦</span> 137+ Years of Academic Excellence
+              <span className="text-accent/60">♦</span> 88 Years of Academic Excellence
             </span>
             <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
               <span className="text-accent/60">♦</span> Virtus et Scientia - Power and Knowledge
@@ -59,7 +59,7 @@ export default function Home() {
           {/* Group 2 (Duplicate 1) */}
           <div className="ticker-group" aria-hidden="true">
             <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-              <span className="text-accent/60">♦</span> 137+ Years of Academic Excellence
+              <span className="text-accent/60">♦</span> 88 Years of Academic Excellence
             </span>
             <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
               <span className="text-accent/60">♦</span> Virtus et Scientia - Power and Knowledge
@@ -75,7 +75,7 @@ export default function Home() {
           {/* Group 3 (Duplicate 2) */}
           <div className="ticker-group" aria-hidden="true">
             <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-              <span className="text-accent/60">♦</span> 137+ Years of Academic Excellence
+              <span className="text-accent/60">♦</span> 88 Years of Academic Excellence
             </span>
             <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
               <span className="text-accent/60">♦</span> Virtus et Scientia - Power and Knowledge
@@ -122,7 +122,7 @@ export default function Home() {
               <span>Girls' College</span>
             </h1>
             <p className="max-w-2xl mx-auto font-sans text-base sm:text-xl text-neutral-light leading-relaxed text-glow-hero">
-              Nurturing virtuous, resilient, and educated female leaders in the hill capital of Kandy for over 137 years.
+              Nurturing virtuous, resilient, and educated female leaders in the hill capital of Kandy for over 88 years.
             </p>
           </div>
 
@@ -174,7 +174,7 @@ export default function Home() {
             {/* Stat 1 */}
             <div className="space-y-2 group">
               <div className="font-serif text-4xl sm:text-5xl lg:text-6xl font-extrabold text-accent group-hover:scale-105 transition-transform duration-200 motion-reduce:transform-none">
-                137+
+                88+
               </div>
               <div className="font-sans text-xs sm:text-sm font-bold uppercase tracking-widest text-neutral-light/75">
                 Years of Excellence
@@ -408,7 +408,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="font-sans text-xs text-neutral-light/75 leading-relaxed max-w-sm">
-                Founded in 1889 by the Sisters of the Good Shepherd, St. Anthony's Girls' College has been a cornerstone of quality education in Kandy for over 137 years. We remain dedicated to character, academics, and female leadership.
+                Founded in 1938 by Father Corne Hyid and Sister Ignatius, St. Anthony's Girls' College has been a cornerstone of quality education in Kandy for over 88 years. We remain dedicated to character, academics, and female leadership.
               </p>
             </div>
 
