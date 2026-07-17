@@ -12,7 +12,7 @@ import NewsSection from "@/components/NewsSection";
 
 export default function Home() {
   return (
-    <main id="main-content" className="flex-grow">
+    <main id="main-content" className="flex-grow overflow-x-hidden">
       
       {/* 0. Infinite Scrolling Ticker Stripe between Header and Hero */}
       <div className="relative w-full bg-secondary text-accent overflow-hidden py-2 border-b border-accent/20 z-20 select-none shadow-sm">
