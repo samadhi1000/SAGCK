@@ -145,6 +145,63 @@ export default function ImageCarousel() {
       className="py-20 bg-neutral-light overflow-hidden"
       aria-labelledby="gallery-heading"
     >
+      {/* Inline styles to guarantee marquee animation execution, bypassing bundler/Tailwind v4 purging */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes scrollMarqueeCustom {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-50%, 0, 0);
+          }
+        }
+        .marquee-container-custom {
+          width: 100%;
+          overflow: hidden;
+          position: relative;
+          display: flex;
+          padding: 1.5rem 0;
+          user-select: none;
+        }
+        .marquee-track-custom {
+          display: flex;
+          width: max-content;
+          animation: scrollMarqueeCustom 35s linear infinite !important;
+        }
+        .marquee-container-custom:hover .marquee-track-custom {
+          animation-play-state: paused !important;
+        }
+        .marquee-group-custom {
+          display: flex;
+          gap: 1.5rem;
+          padding-right: 1.5rem;
+        }
+        .marquee-card-custom {
+          width: 280px;
+          height: 360px;
+          border-radius: 0.75rem;
+          overflow: hidden;
+          position: relative;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          flex-shrink: 0;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+          transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          background: white;
+        }
+        @media (min-width: 640px) {
+          .marquee-card-custom {
+            width: 320px;
+            height: 390px;
+          }
+        }
+        .marquee-card-custom:hover {
+          transform: scale(1.02) translateY(-4px);
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+      `}} />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <span className="font-sans text-sm font-bold uppercase tracking-wider text-primary">
@@ -161,22 +218,22 @@ export default function ImageCarousel() {
       </div>
 
       {/* Infinite scrolling marquee track container */}
-      <div className="marquee-container">
+      <div className="marquee-container-custom">
         
         {/* Soft edge blur using transparent gradients */}
         <div className="absolute top-0 bottom-0 left-0 w-8 md:w-32 bg-gradient-to-r from-neutral-light to-transparent z-10 pointer-events-none" aria-hidden="true" />
         <div className="absolute top-0 bottom-0 right-0 w-8 md:w-32 bg-gradient-to-l from-neutral-light to-transparent z-10 pointer-events-none" aria-hidden="true" />
 
         {/* The moving track */}
-        <div className="marquee-track">
+        <div className="marquee-track-custom">
           
           {/* Group 1 */}
-          <div className="marquee-group">
+          <div className="marquee-group-custom">
             {carouselImages.map((image, index) => (
               <button
                 key={`g1-${index}`}
                 onClick={() => handleOpenLightbox(index)}
-                className="marquee-card text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
+                className="marquee-card-custom text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
                 aria-label={`View full screen details for ${image.title}: ${image.description}`}
               >
                 {/* Image wrapper */}
@@ -216,12 +273,12 @@ export default function ImageCarousel() {
           </div>
 
           {/* Group 2 (Duplicate for seamless loop) */}
-          <div className="marquee-group" aria-hidden="true">
+          <div className="marquee-group-custom" aria-hidden="true">
             {carouselImages.map((image, index) => (
               <button
                 key={`g2-${index}`}
                 onClick={() => handleOpenLightbox(index)}
-                className="marquee-card text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
+                className="marquee-card-custom text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
                 tabIndex={-1}
               >
                 {/* Image wrapper */}
