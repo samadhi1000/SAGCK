@@ -161,77 +161,105 @@ export default function ImageCarousel() {
       </div>
 
       {/* Infinite scrolling marquee track container */}
-      <div className="relative w-full overflow-hidden group/marquee py-6">
+      <div className="marquee-container">
         
         {/* Soft edge blur using transparent gradients */}
         <div className="absolute top-0 bottom-0 left-0 w-8 md:w-32 bg-gradient-to-r from-neutral-light to-transparent z-10 pointer-events-none" aria-hidden="true" />
         <div className="absolute top-0 bottom-0 right-0 w-8 md:w-32 bg-gradient-to-l from-neutral-light to-transparent z-10 pointer-events-none" aria-hidden="true" />
 
         {/* The moving track */}
-        <div 
-          className="flex flex-row w-max gap-6 animate-marquee"
-          role="region"
-          aria-label="Image Loop. Hover to pause, click an image to enlarge."
-        >
-          {doubledImages.map((image, index) => (
-            <button
-              key={index}
-              onClick={() => handleOpenLightbox(index)}
-              className="flex-shrink-0 w-[280px] sm:w-[340px] md:w-[380px] flex flex-col rounded-xl overflow-hidden shadow-md border border-neutral-200 bg-white group/card text-left transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
-              aria-label={`View full screen details for ${image.title}: ${image.description}`}
-            >
-              {/* Image wrapper with fixed height */}
-              <div className="relative w-full h-52 sm:h-64 md:h-72 overflow-hidden bg-neutral-100 flex-shrink-0">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="(max-width: 640px) 280px, (max-width: 768px) 340px, 380px"
-                  className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-105"
-                />
-                
-                {/* Subtle gradient overlay to darken the bottom slightly for the zoom-in icon contrast */}
-                <div 
-                  className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
-                  aria-hidden="true"
-                />
+        <div className="marquee-track">
+          
+          {/* Group 1 */}
+          <div className="marquee-group">
+            {carouselImages.map((image, index) => (
+              <button
+                key={`g1-${index}`}
+                onClick={() => handleOpenLightbox(index)}
+                className="marquee-card text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
+                aria-label={`View full screen details for ${image.title}: ${image.description}`}
+              >
+                {/* Image wrapper */}
+                <div className="relative w-full h-[180px] sm:h-[220px] overflow-hidden bg-neutral-100 flex-shrink-0">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 640px) 280px, 320px"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
+                </div>
 
-                {/* Enlarge icon on hover */}
-                <div 
-                  className="absolute top-3 right-3 bg-secondary/80 backdrop-blur-sm p-2 rounded-full border border-white/20 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  aria-hidden="true"
-                >
-                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
-                  </svg>
+                {/* Text Content */}
+                <div className="p-4 sm:p-5 flex-grow flex flex-col justify-between bg-gradient-to-b from-white to-neutral-50/50">
+                  <div className="space-y-1">
+                    <span className="block text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-primary">
+                      {image.category}
+                    </span>
+                    <h3 className="font-serif text-sm sm:text-base font-bold text-secondary leading-snug group-hover:text-primary transition-colors">
+                      {image.title}
+                    </h3>
+                    <p className="font-sans text-[11px] sm:text-xs text-neutral-600 leading-relaxed line-clamp-2 mt-1">
+                      {image.description}
+                    </p>
+                  </div>
+                  <div className="pt-1 flex items-center text-[10px] font-bold uppercase tracking-wider text-accent">
+                    <span>View Photo</span>
+                    <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
+              </button>
+            ))}
+          </div>
 
-              {/* Text Content below the image */}
-              <div className="p-4 sm:p-5 flex-grow flex flex-col justify-between space-y-3 bg-gradient-to-b from-white to-neutral-50/50">
-                <div className="space-y-1">
-                  <span className="block text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-primary">
-                    {image.category}
-                  </span>
-                  <h3 className="font-serif text-sm sm:text-base font-bold text-secondary leading-snug group-hover/card:text-primary transition-colors">
-                    {image.title}
-                  </h3>
+          {/* Group 2 (Duplicate for seamless loop) */}
+          <div className="marquee-group" aria-hidden="true">
+            {carouselImages.map((image, index) => (
+              <button
+                key={`g2-${index}`}
+                onClick={() => handleOpenLightbox(index)}
+                className="marquee-card text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
+                tabIndex={-1}
+              >
+                {/* Image wrapper */}
+                <div className="relative w-full h-[180px] sm:h-[220px] overflow-hidden bg-neutral-100 flex-shrink-0">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 640px) 280px, 320px"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
                 </div>
-                
-                <p className="font-sans text-[11px] sm:text-xs text-neutral-600 leading-relaxed line-clamp-2">
-                  {image.description}
-                </p>
-                
-                {/* Visual Indicator link decoration at the bottom */}
-                <div className="pt-1 flex items-center text-[10px] font-bold uppercase tracking-wider text-accent group-hover/card:text-accent-hover transition-colors">
-                  <span>View Photo</span>
-                  <svg className="w-3 h-3 ml-1 transform transition-transform group-hover/card:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+
+                {/* Text Content */}
+                <div className="p-4 sm:p-5 flex-grow flex flex-col justify-between bg-gradient-to-b from-white to-neutral-50/50">
+                  <div className="space-y-1">
+                    <span className="block text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-primary">
+                      {image.category}
+                    </span>
+                    <h3 className="font-serif text-sm sm:text-base font-bold text-secondary leading-snug group-hover:text-primary transition-colors">
+                      {image.title}
+                    </h3>
+                    <p className="font-sans text-[11px] sm:text-xs text-neutral-600 leading-relaxed line-clamp-2 mt-1">
+                      {image.description}
+                    </p>
+                  </div>
+                  <div className="pt-1 flex items-center text-[10px] font-bold uppercase tracking-wider text-accent">
+                    <span>View Photo</span>
+                    <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            ))}
+          </div>
+
         </div>
       </div>
 

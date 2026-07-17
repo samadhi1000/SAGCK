@@ -345,7 +345,6 @@ export default function Home() {
                 <li><a href="#clubs" className="hover:text-accent transition-colors focus:outline-none">Clubs & Societies</a></li>
                 <li><a href="#sports" className="hover:text-accent transition-colors focus:outline-none">Sports & Athletics</a></li>
                 <li><a href="#news" className="hover:text-accent transition-colors focus:outline-none">News & Achievements</a></li>
-                <li><a href="#facilities" className="hover:text-accent transition-colors focus:outline-none">School Facilities</a></li>
               </ul>
             </div>
 

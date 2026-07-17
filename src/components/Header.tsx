@@ -10,7 +10,6 @@ const NAV_ITEMS = [
   { label: "Clubs & Societies", href: "#clubs" },
   { label: "Sports", href: "#sports" },
   { label: "News", href: "#news" },
-  { label: "Facilities", href: "#facilities" },
   { label: "Contact", href: "#contact" },
 ];
 
