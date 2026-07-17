@@ -13,14 +13,14 @@
   --font-serif: var(--font-cormorant);
   --font-sans: var(--font-inter);
 
-  --animate-marquee: marquee-scroll 35s linear infinite;
+  --animate-marquee: marquee-scroll 40s linear infinite;
 
   @keyframes marquee-scroll {
     0% {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translate3d(-50%, 0, 0);
     }
   }
 }
@@ -78,7 +78,7 @@ body {
 .marquee-track {
     display: flex;
     width: max-content;
-    animation: scrollMarquee 40s linear infinite;
+    animation: marquee-scroll 40s linear infinite !important;
 }
 
 .marquee-group {
@@ -119,15 +119,6 @@ body {
     animation-play-state: paused;
 }
 
-/* Seamless infinite right-to-left scrolling loop keyframes using translate3d */
-@keyframes scrollMarquee {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        transform: translate3d(-50%, 0, 0);
-    }
-}
 
 /* Accessibility: Stop marquee animation for users with prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
