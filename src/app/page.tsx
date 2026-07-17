@@ -14,6 +14,82 @@ export default function Home() {
   return (
     <main id="main-content" className="flex-grow">
       
+      {/* 0. Infinite Scrolling Ticker Stripe between Header and Hero */}
+      <div className="relative w-full bg-secondary text-accent overflow-hidden py-2 border-b border-accent/20 z-20 select-none shadow-sm">
+        {/* Style block for the ticker animation to guarantee execution on Vercel */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes tickerScroll {
+            0% {
+              transform: translate3d(0, 0, 0);
+            }
+            100% {
+              transform: translate3d(-33.333%, 0, 0);
+            }
+          }
+          .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: tickerScroll 25s linear infinite !important;
+          }
+          .ticker-group {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            padding-right: 3rem;
+          }
+        `}} />
+        
+        <div className="ticker-track">
+          {/* Group 1 */}
+          <div className="ticker-group">
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> 137+ Years of Academic Excellence
+            </span>
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> Virtus et Scientia - Power and Knowledge
+            </span>
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> Over 50+ Active Clubs & Sports Societies
+            </span>
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> Pioneering Female Leadership in Kandy
+            </span>
+          </div>
+
+          {/* Group 2 (Duplicate 1) */}
+          <div className="ticker-group" aria-hidden="true">
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> 137+ Years of Academic Excellence
+            </span>
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> Virtus et Scientia - Power and Knowledge
+            </span>
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> Over 50+ Active Clubs & Sports Societies
+            </span>
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> Pioneering Female Leadership in Kandy
+            </span>
+          </div>
+
+          {/* Group 3 (Duplicate 2) */}
+          <div className="ticker-group" aria-hidden="true">
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> 137+ Years of Academic Excellence
+            </span>
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> Virtus et Scientia - Power and Knowledge
+            </span>
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> Over 50+ Active Clubs & Sports Societies
+            </span>
+            <span className="font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent/60">♦</span> Pioneering Female Leadership in Kandy
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* 1. Hero Section */}
       <section
         id="home"
