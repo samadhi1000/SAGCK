@@ -180,8 +180,8 @@ export default function ImageCarousel() {
               className="flex-shrink-0 w-[280px] sm:w-[340px] md:w-[380px] flex flex-col rounded-xl overflow-hidden shadow-md border border-neutral-200 bg-white group/card text-left transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
               aria-label={`View full screen details for ${image.title}: ${image.description}`}
             >
-              {/* Image wrapper with fixed aspect ratio */}
-              <div className="relative w-full aspect-[4/3] overflow-hidden bg-neutral-100 flex-shrink-0">
+              {/* Image wrapper with fixed height */}
+              <div className="relative w-full h-52 sm:h-64 md:h-72 overflow-hidden bg-neutral-100 flex-shrink-0">
                 <Image
                   src={image.src}
                   alt={image.alt}

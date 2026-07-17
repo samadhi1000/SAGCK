@@ -12,6 +12,17 @@
   
   --font-serif: var(--font-cormorant);
   --font-sans: var(--font-inter);
+
+  --animate-marquee: marquee-scroll 35s linear infinite;
+
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 :root {
