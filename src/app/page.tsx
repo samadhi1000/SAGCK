@@ -396,7 +396,7 @@ export default function Home() {
                   alt="St. Anthony's Girls' College Kandy Crest"
                   width={40}
                   height={40}
-                  className="h-10 w-10 object-contain bg-white p-1 rounded"
+                  className="h-10 w-10 object-contain drop-shadow-[0_0_8px_rgba(212,175,55,0.75)] filter"
                 />
                 <div className="flex flex-col">
                   <span className="font-serif text-sm md:text-base font-black tracking-tight leading-tight text-white">
