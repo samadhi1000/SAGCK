@@ -434,10 +434,37 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Copyright Bar */}
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-[10px] sm:text-xs text-neutral-light/60">
-            <p>© {new Date().getFullYear()} St. Anthony's Girls' College Kandy. All Rights Reserved.</p>
-            <p>Designed with excellence for Antonian daughters.</p>
+          {/* Copyright & StackUnleash Balanced Slim Footer Bar */}
+          <div className="pt-6 mt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Left: Copyright & Tagline */}
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-neutral-light/50 font-sans text-center sm:text-left">
+              <p>© {new Date().getFullYear()} St. Anthony's Girls' College Kandy. All Rights Reserved.</p>
+              <span className="hidden sm:inline text-white/10" aria-hidden="true">|</span>
+              <p className="text-accent/80 font-medium">Designed with excellence for Antonian daughters</p>
+            </div>
+
+            {/* Right: Small StackUnleash Credit button */}
+            <div className="flex items-center gap-2">
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-neutral-light/40 font-bold font-sans">Developed by</span>
+              <a 
+                href="https://github.com/samadhi1000" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center gap-1.5 bg-black/40 hover:bg-black/60 border border-white/5 hover:border-white/15 px-2.5 py-1 rounded transition-all group"
+                aria-label="Visit StackUnleash"
+              >
+                <Image 
+                  src="/images/stackunleash-logo.png" 
+                  alt="StackUnleash Logo" 
+                  width={14} 
+                  height={14} 
+                  className="h-3.5 w-3.5 object-contain"
+                />
+                <span className="font-sans text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-gradient-stackunleash">
+                  StackUnleash
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </footer>

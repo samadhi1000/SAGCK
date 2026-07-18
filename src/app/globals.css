@@ -203,5 +203,35 @@ body {
     drop-shadow(0 0 50px rgba(37, 99, 235, 0.45));
 }
 
+/* StackUnleash Logo Shimmering Gradient Animation */
+.text-gradient-stackunleash {
+  background: linear-gradient(
+    135deg,
+    #D4AF37 0%,   /* Gold */
+    #FFFFFF 25%,  /* White */
+    #D4AF37 50%,  /* Gold */
+    #FFFFFF 75%,  /* White */
+    #D4AF37 100%  /* Gold Loop */
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: stackunleash-gradient-shift 4s linear infinite !important;
+}
+
+@keyframes stackunleash-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 
