@@ -20,7 +20,7 @@ export default function Header() {
   // Track active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 120; // offset for sticky header
+      const scrollPosition = window.scrollY + 90; // offset for sticky header
       
       for (const item of NAV_ITEMS) {
         const el = document.getElementById(item.href.replace("#", ""));
@@ -42,7 +42,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-primary/10 shadow-sm transition-all duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 md:h-28">
+        <div className="flex items-center justify-between h-16 md:h-20">
           
           {/* Logo / School Brand */}
           <a
