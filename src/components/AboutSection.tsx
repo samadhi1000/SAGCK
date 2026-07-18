@@ -158,7 +158,7 @@ export default function AboutSection() {
             >
               <div className="space-y-4">
                 <span className="font-sans text-sm font-bold uppercase tracking-wider text-primary">
-                  Welcome to St. Anthony’s
+                  Welcome to St. Anthony’s Girls' College
                 </span>
                 <h2 id="about-main-heading" className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-secondary">
                   Empowering Minds, Shaping Generations
