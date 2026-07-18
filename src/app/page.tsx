@@ -447,7 +447,7 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-neutral-light/40 font-bold font-sans">Developed by</span>
               <a 
-                href="https://github.com/samadhi1000" 
+                href="https://www.stackunleash.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="flex items-center gap-1.5 bg-black/40 hover:bg-black/60 border border-white/5 hover:border-white/15 px-2.5 py-1 rounded transition-all group"
