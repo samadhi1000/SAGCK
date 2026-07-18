@@ -79,7 +79,7 @@ export default function SportsSection() {
               <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden="true" />
 
               {/* 1. Large Top Sports Illustration */}
-              <div className="relative w-full h-52 bg-white overflow-hidden flex-shrink-0 flex items-center justify-center border-b border-white/5">
+              <div className="relative w-full h-52 overflow-hidden flex-shrink-0 flex items-center justify-center border-b border-white/5">
                 <Image
                   src={sport.image}
                   alt={`${sport.name} illustration`}
