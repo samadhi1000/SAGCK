@@ -18,9 +18,32 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sagck.vercel.app"),
   title: "St. Anthony’s Girls’ College | Kandy, Sri Lanka",
-  description: "Official website of St. Anthony’s Girls’ College, Kandy. Empowering young women through quality education, academic excellence, and character development since 1889.",
+  description: "Official website of St. Anthony’s Girls’ College, Kandy. Empowering young women through quality education, academic excellence, and character development since 1938.",
   keywords: ["St. Anthony's Girls' College", "Kandy", "Sri Lanka", "School", "Education", "Girls School", "Admissions"],
+  openGraph: {
+    title: "St. Anthony’s Girls’ College | Kandy, Sri Lanka",
+    description: "Official website of St. Anthony’s Girls’ College, Kandy. Empowering young women through quality education, academic excellence, and character development since 1938.",
+    url: "https://sagck.vercel.app",
+    siteName: "St. Anthony's Girls' College Kandy",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "St. Anthony's Girls' College Kandy Waving Flag and Crest",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "St. Anthony’s Girls’ College | Kandy, Sri Lanka",
+    description: "Official website of St. Anthony’s Girls’ College, Kandy. Empowering young women through quality education, academic excellence, and character development since 1938.",
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default function RootLayout({
