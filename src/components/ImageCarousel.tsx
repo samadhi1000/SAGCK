@@ -82,11 +82,33 @@ export default function ImageCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Combine images to create a seamless infinite loop track
-  const doubledImages = [...carouselImages, ...carouselImages];
+  // Refs for DOM elements
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const groupRef = useRef<HTMLDivElement>(null);
+
+  // Physics & Animation state refs (retains state across frames without triggering React re-renders)
+  const scrollPosRef = useRef(0);
+  const currentSpeedRef = useRef(-0.06); // pixels per millisecond (starts at default auto-scroll speed)
+  const targetSpeedRef = useRef(-0.06);
+  const isHoveredRef = useRef(false);
+  const mouseXRef = useRef(0);
+  const animationFrameIdRef = useRef<number | null>(null);
+
+  // Dragging state refs
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const lastTouchXRef = useRef(0);
+  const lastTouchTimeRef = useRef(0);
+  const touchVelocityRef = useRef(0);
+  const dragStartScrollPosRef = useRef(0);
+  const dragDistanceRef = useRef(0);
 
   const handleOpenLightbox = (index: number) => {
-    // We map the doubled image index back to the original index
+    if (dragDistanceRef.current > 10) {
+      // Ignore click if the user was dragging/swiping
+      return;
+    }
     const originalIndex = index % carouselImages.length;
     setCurrentIndex(originalIndex);
     setLightboxOpen(true);
@@ -139,6 +161,194 @@ export default function ImageCarousel() {
     };
   }, [lightboxOpen]);
 
+  // Animation Loop & Drag Listeners
+  useEffect(() => {
+    const container = containerRef.current;
+    const track = trackRef.current;
+    const group = groupRef.current;
+    if (!container || !track || !group) return;
+
+    // Turn off pure CSS marquee animation to let JS take control
+    track.style.setProperty("animation", "none", "important");
+
+    let lastTime = performance.now();
+
+    const update = (time: number) => {
+      const dt = Math.min(time - lastTime, 100); // limit delta time to avoid jumps on tab switch
+      lastTime = time;
+
+      const halfWidth = group.getBoundingClientRect().width;
+      if (halfWidth === 0) {
+        animationFrameIdRef.current = requestAnimationFrame(update);
+        return;
+      }
+
+      const containerRect = container.getBoundingClientRect();
+      const containerWidth = containerRect.width;
+
+      if (isDraggingRef.current) {
+        // Handle boundary wrap-around during drag
+        if (scrollPosRef.current <= -halfWidth) {
+          scrollPosRef.current += halfWidth;
+          startXRef.current += halfWidth;
+          lastTouchXRef.current += halfWidth;
+        } else if (scrollPosRef.current > 0) {
+          scrollPosRef.current -= halfWidth;
+          startXRef.current -= halfWidth;
+          lastTouchXRef.current -= halfWidth;
+        }
+        currentSpeedRef.current = 0;
+        targetSpeedRef.current = 0;
+      } else {
+        if (isHoveredRef.current) {
+          const relativeX = mouseXRef.current - containerRect.left;
+          const center = containerWidth / 2;
+          const distanceFromCenter = relativeX - center;
+          const deadzone = containerWidth * 0.15;
+
+          if (Math.abs(distanceFromCenter) < deadzone) {
+            targetSpeedRef.current = 0;
+          } else {
+            const sign = distanceFromCenter > 0 ? -1 : 1;
+            const activeRange = center - deadzone;
+            const excess = Math.abs(distanceFromCenter) - deadzone;
+            const ratio = Math.min(excess / activeRange, 1);
+            
+            // Limit max speed to 0.45px/ms (approx 7.5px/frame at 60fps)
+            const maxSpeedMs = 0.45;
+            targetSpeedRef.current = sign * ratio * maxSpeedMs;
+          }
+        } else {
+          // Default auto-scroll speed (approx 1px/frame at 60fps)
+          targetSpeedRef.current = -0.06;
+        }
+
+        // Lerp speed transition: frame-rate independent
+        const lerpCoefficient = 1 - Math.exp(-0.005 * dt);
+        currentSpeedRef.current += (targetSpeedRef.current - currentSpeedRef.current) * lerpCoefficient;
+
+        scrollPosRef.current += currentSpeedRef.current * dt;
+
+        // Wrap around boundaries
+        if (scrollPosRef.current <= -halfWidth) {
+          scrollPosRef.current += halfWidth;
+        } else if (scrollPosRef.current > 0) {
+          scrollPosRef.current -= halfWidth;
+        }
+      }
+
+      track.style.transform = `translate3d(${scrollPosRef.current}px, 0, 0)`;
+
+      animationFrameIdRef.current = requestAnimationFrame(update);
+    };
+
+    animationFrameIdRef.current = requestAnimationFrame(update);
+
+    // Global mouseup event listener to handle drag releases outside the container
+    const handleGlobalMouseUp = () => {
+      if (isDraggingRef.current) {
+        isDraggingRef.current = false;
+        currentSpeedRef.current = touchVelocityRef.current;
+      }
+    };
+    window.addEventListener("mouseup", handleGlobalMouseUp);
+
+    return () => {
+      if (animationFrameIdRef.current) {
+        cancelAnimationFrame(animationFrameIdRef.current);
+      }
+      window.removeEventListener("mouseup", handleGlobalMouseUp);
+    };
+  }, []);
+
+  // Event handlers for desktop/mouse
+  const handleMouseEnter = () => {
+    isHoveredRef.current = true;
+  };
+
+  const handleMouseLeave = () => {
+    if (isDraggingRef.current) {
+      isDraggingRef.current = false;
+      currentSpeedRef.current = touchVelocityRef.current;
+    }
+    isHoveredRef.current = false;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    mouseXRef.current = e.clientX;
+
+    if (isDraggingRef.current) {
+      const currentX = e.clientX;
+      const currentTime = performance.now();
+      const deltaX = currentX - startXRef.current;
+      
+      scrollPosRef.current = dragStartScrollPosRef.current + deltaX;
+      dragDistanceRef.current = Math.abs(deltaX);
+
+      const dt = currentTime - lastTouchTimeRef.current;
+      if (dt > 0) {
+        const dx = currentX - lastTouchXRef.current;
+        const velocity = dx / dt;
+        touchVelocityRef.current = Math.max(Math.min(velocity, 0.8), -0.8);
+      }
+      lastTouchXRef.current = currentX;
+      lastTouchTimeRef.current = currentTime;
+    }
+  };
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return; // Only left click triggers drag
+    isDraggingRef.current = true;
+    startXRef.current = e.clientX;
+    lastTouchXRef.current = e.clientX;
+    lastTouchTimeRef.current = performance.now();
+    dragStartScrollPosRef.current = scrollPosRef.current;
+    dragDistanceRef.current = 0;
+    touchVelocityRef.current = 0;
+    currentSpeedRef.current = 0;
+    targetSpeedRef.current = 0;
+  };
+
+  // Event handlers for touch/mobile
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true;
+    isHoveredRef.current = false;
+    startXRef.current = e.touches[0].clientX;
+    lastTouchXRef.current = e.touches[0].clientX;
+    lastTouchTimeRef.current = performance.now();
+    dragStartScrollPosRef.current = scrollPosRef.current;
+    dragDistanceRef.current = 0;
+    touchVelocityRef.current = 0;
+    currentSpeedRef.current = 0;
+    targetSpeedRef.current = 0;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    const currentX = e.touches[0].clientX;
+    const currentTime = performance.now();
+    const deltaX = currentX - startXRef.current;
+    
+    scrollPosRef.current = dragStartScrollPosRef.current + deltaX;
+    dragDistanceRef.current = Math.abs(deltaX);
+
+    const dt = currentTime - lastTouchTimeRef.current;
+    if (dt > 0) {
+      const dx = currentX - lastTouchXRef.current;
+      const velocity = dx / dt;
+      touchVelocityRef.current = Math.max(Math.min(velocity, 0.8), -0.8);
+    }
+    lastTouchXRef.current = currentX;
+    lastTouchTimeRef.current = currentTime;
+  };
+
+  const handleTouchEnd = () => {
+    if (isDraggingRef.current) {
+      isDraggingRef.current = false;
+      currentSpeedRef.current = touchVelocityRef.current;
+    }
+  };
+
   return (
     <section 
       id="gallery" 
@@ -166,10 +376,8 @@ export default function ImageCarousel() {
         .marquee-track-custom {
           display: flex;
           width: max-content;
-          animation: scrollMarqueeCustom 35s linear infinite !important;
-        }
-        .marquee-container-custom:hover .marquee-track-custom {
-          animation-play-state: paused !important;
+          animation: scrollMarqueeCustom 35s linear infinite;
+          will-change: transform;
         }
         .marquee-group-custom {
           display: flex;
@@ -218,22 +426,32 @@ export default function ImageCarousel() {
       </div>
 
       {/* Infinite scrolling marquee track container */}
-      <div className="marquee-container-custom">
+      <div 
+        ref={containerRef}
+        className="marquee-container-custom cursor-grab active:cursor-grabbing select-none"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onMouseMove={handleMouseMove}
+        onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         
         {/* Soft edge blur using transparent gradients */}
         <div className="absolute top-0 bottom-0 left-0 w-8 md:w-32 bg-gradient-to-r from-neutral-light to-transparent z-10 pointer-events-none" aria-hidden="true" />
         <div className="absolute top-0 bottom-0 right-0 w-8 md:w-32 bg-gradient-to-l from-neutral-light to-transparent z-10 pointer-events-none" aria-hidden="true" />
 
         {/* The moving track */}
-        <div className="marquee-track-custom">
+        <div ref={trackRef} className="marquee-track-custom">
           
           {/* Group 1 */}
-          <div className="marquee-group-custom">
+          <div ref={groupRef} className="marquee-group-custom">
             {carouselImages.map((image, index) => (
               <button
                 key={`g1-${index}`}
                 onClick={() => handleOpenLightbox(index)}
-                className="marquee-card-custom text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
+                className="group marquee-card-custom text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
                 aria-label={`View full screen details for ${image.title}: ${image.description}`}
               >
                 {/* Image wrapper */}
@@ -278,7 +496,7 @@ export default function ImageCarousel() {
               <button
                 key={`g2-${index}`}
                 onClick={() => handleOpenLightbox(index)}
-                className="marquee-card-custom text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
+                className="group marquee-card-custom text-left focus-visible:outline focus-visible:outline-3 focus-visible:outline-accent"
                 tabIndex={-1}
               >
                 {/* Image wrapper */}
