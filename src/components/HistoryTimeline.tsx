@@ -60,7 +60,7 @@ export default function HistoryTimeline() {
   return (
     <section
       id="history"
-      className="py-24 bg-white text-neutral-dark px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="py-24 bg-secondary text-white px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       aria-labelledby="history-heading"
     >
       {/* Decorative background vectors representing historical scrolls/curves */}
@@ -71,14 +71,14 @@ export default function HistoryTimeline() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <span className="font-sans text-sm font-bold uppercase tracking-wider text-primary">
+          <span className="font-sans text-sm font-bold uppercase tracking-wider text-accent">
             Our Legacy
           </span>
-          <h2 id="history-heading" className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-secondary">
+          <h2 id="history-heading" className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
             The Glamorous History of the School
           </h2>
           <div className="w-16 h-1 bg-accent mx-auto rounded" aria-hidden="true" />
-          <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-neutral-light/80 leading-relaxed">
             Click through our historical milestones to discover the journey of St. Anthony’s Girls’ College from its humble beginnings in 1938 to its current status as a premier educational institution.
           </p>
         </div>
@@ -97,8 +97,8 @@ export default function HistoryTimeline() {
                 onClick={() => setActiveEraId(era.id)}
                 className={`px-5 py-3.5 rounded font-sans text-xs md:text-sm font-bold tracking-wide uppercase transition-all focus-visible:outline-2 focus-visible:outline-accent ${
                   isActive
-                    ? "bg-primary text-white shadow-lg scale-105"
-                    : "bg-neutral-light hover:bg-neutral-200 text-secondary"
+                    ? "bg-accent text-secondary shadow-lg scale-105"
+                    : "bg-white/5 hover:bg-white/10 text-white border border-white/10"
                 }`}
               >
                 {era.title}
@@ -112,7 +112,7 @@ export default function HistoryTimeline() {
           id={`panel-${activeEra.id}`}
           role="tabpanel"
           aria-labelledby={`tab-${activeEra.id}`}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 bg-neutral-light rounded-xl p-8 md:p-12 border border-neutral-200 shadow-sm transition-all duration-300 motion-reduce:transition-none"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 bg-white/5 rounded-xl p-8 md:p-12 border border-white/10 shadow-sm transition-all duration-300 motion-reduce:transition-none"
         >
           {/* Left Block: Description Paragraph */}
           <div className="lg:col-span-7 space-y-6">
@@ -120,19 +120,19 @@ export default function HistoryTimeline() {
               <span className="font-sans text-xs font-bold uppercase tracking-wider text-accent">
                 {activeEra.title} Era
               </span>
-              <h3 className="font-serif text-2xl md:text-3xl font-bold text-secondary">
+              <h3 className="font-serif text-2xl md:text-3xl font-bold text-white">
                 {activeEra.sub}
               </h3>
             </div>
             
-            <p className="font-sans text-sm md:text-base text-neutral-600 leading-relaxed min-h-[180px]">
+            <p className="font-sans text-sm md:text-base text-neutral-light/80 leading-relaxed min-h-[180px]">
               {activeEra.paragraph}
             </p>
           </div>
 
           {/* Right Block: Structured Highlights Timeline */}
-          <div className="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-neutral-300 pt-8 lg:pt-0 lg:pl-10 space-y-6">
-            <h4 className="font-serif text-sm font-bold uppercase tracking-widest text-primary mb-4">
+          <div className="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-white/10 pt-8 lg:pt-0 lg:pl-10 space-y-6">
+            <h4 className="font-serif text-sm font-bold uppercase tracking-widest text-accent mb-4">
               Historical Highlights
             </h4>
             
@@ -141,10 +141,10 @@ export default function HistoryTimeline() {
                 <li key={index} className="flex items-start space-x-3">
                   <div className="mt-1 shrink-0 w-2 h-2 rounded-full bg-accent" aria-hidden="true" />
                   <div>
-                    <span className="font-sans text-xs font-bold text-secondary uppercase block tracking-wider">
+                    <span className="font-sans text-xs font-bold text-white uppercase block tracking-wider">
                       {highlight.year}
                     </span>
-                    <span className="font-sans text-xs text-neutral-600">
+                    <span className="font-sans text-xs text-neutral-light/75">
                       {highlight.text}
                     </span>
                   </div>
