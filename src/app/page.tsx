@@ -443,26 +443,31 @@ export default function Home() {
               <p className="text-accent/80 font-medium">Designed with excellence for Antonian daughters</p>
             </div>
 
-            {/* Right: Small StackUnleash Credit button */}
-            <div className="flex items-center gap-2">
-              <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-neutral-light/40 font-bold font-sans">Developed by</span>
+            {/* Right: Premium StackUnleash Branding */}
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] sm:text-xs uppercase tracking-widest text-neutral-light/40 font-bold font-sans">Powered by</span>
               <a 
                 href="https://www.stackunleash.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-1.5 bg-black/40 hover:bg-black/60 border border-white/5 hover:border-white/15 px-2.5 py-1 rounded transition-all group"
+                className="flex items-center gap-2 bg-black/40 hover:bg-black/60 border border-white/5 hover:border-white/15 px-3 py-1.5 rounded transition-all group"
                 aria-label="Visit StackUnleash"
               >
                 <Image 
                   src="/images/stackunleash-logo.png" 
                   alt="StackUnleash Logo" 
-                  width={14} 
-                  height={14} 
-                  className="h-3.5 w-3.5 object-contain"
+                  width={20} 
+                  height={20} 
+                  className="h-5 w-5 object-contain"
                 />
-                <span className="font-sans text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-gradient-stackunleash">
-                  StackUnleash
-                </span>
+                <div className="flex flex-col text-left">
+                  <span className="font-sans text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-gradient-stackunleash leading-none">
+                    StackUnleash
+                  </span>
+                  <span className="font-sans text-[6px] tracking-[0.2em] text-white/50 uppercase leading-none mt-0.5 font-bold">
+                    Build • Automate • Scale
+                  </span>
+                </div>
               </a>
             </div>
           </div>
