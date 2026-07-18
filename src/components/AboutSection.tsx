@@ -198,13 +198,17 @@ export default function AboutSection() {
                   </p>
                 </div>
 
-                <div className="md:col-span-6 relative p-6 rounded-xl bg-white border border-neutral-200/60 shadow-sm flex flex-col justify-center">
-                  <blockquote className="space-y-4 my-auto">
-                    <p className="font-serif italic text-sm sm:text-base text-neutral-600 leading-relaxed">
+                <div className="md:col-span-6 relative p-8 rounded-2xl bg-secondary text-white border border-white/10 shadow-lg flex flex-col justify-center overflow-hidden min-h-[250px] group">
+                  {/* Background gradient decorative glow on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-primary/20 opacity-50 pointer-events-none" aria-hidden="true" />
+                  
+                  <blockquote className="space-y-4 my-auto relative z-10">
+                    <p className="font-serif italic text-base sm:text-lg md:text-xl font-medium leading-relaxed bg-gradient-to-r from-[#D4AF37] via-[#FFF3D1] to-[#D4AF37] bg-clip-text text-transparent drop-shadow-[0_0_6px_rgba(212,175,55,0.3)] tracking-wide">
                       "Virtue and knowledge represent the twin pillars on which we construct our lives. St. Anthony's teaches us not just how to perform in exams, but how to lead with grace."
                     </p>
-                    <footer className="font-sans text-[10px] font-bold tracking-widest text-primary uppercase">
-                      — Antonian Alumni Association
+                    <footer className="font-sans text-[10px] font-black tracking-[0.2em] text-[#D4AF37]/90 uppercase flex items-center space-x-2">
+                      <span className="w-6 h-[1px] bg-[#D4AF37]/50" aria-hidden="true" />
+                      <span>Antonian Alumni Association</span>
                     </footer>
                   </blockquote>
                 </div>
