@@ -85,7 +85,7 @@ export default function SportsSection() {
                   alt={`${sport.name} illustration`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-contain p-4 transition-transform duration-500 ease-out group-hover:scale-105"
+                  className="object-contain p-1.5 transition-transform duration-500 ease-out group-hover:scale-105"
                 />
               </div>
 
