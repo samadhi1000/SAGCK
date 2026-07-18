@@ -77,26 +77,28 @@ def fix_netball():
     sheet = Image.open(sheet_path).convert("RGBA")
     w, h = sheet.size
     
-    # 1. Crop a wider quadrant to ensure hand/arm is 100% inside
-    # (from 37% of width to 67% of width)
+    # 1. Crop a wider quadrant (from 37% to 67% of width)
     netball_quad = (int(w * 0.37), 0, int(w * 0.67), int(h * 0.48))
     cropped = sheet.crop(netball_quad)
     
     cw, ch = cropped.size
     pixels = cropped.load()
     
-    # 2. Erase neighbor colors (blue runner splash on left, red sprinter splash on right)
-    # A pixel is blueish if B is dominant, reddish if R is dominant.
-    # We turn them to solid white so the crop & transparency ignores them!
+    # 2. Erase non-green, non-grey debris pixels
     for y in range(ch):
         for x in range(cw):
             r, g, b, a = pixels[x, y]
-            # Detect blue splash (B is significantly greater than R and G)
-            if b > 90 and (b - g) > 15 and (b - r) > 15:
-                pixels[x, y] = (255, 255, 255, 255)
-            # Detect red splash (R is significantly greater than G and B)
-            elif r > 90 and (r - g) > 15 and (r - b) > 15:
-                pixels[x, y] = (255, 255, 255, 255)
+            
+            # Check if it is background white
+            is_white = r > 240 and g > 240 and b > 240
+            # Check if it is grey/black (player lines)
+            is_grey = max(r, g, b) - min(r, g, b) < 25
+            # Check if it is green splash
+            is_green = g > r + 6 and g > b + 6
+            
+            # If it is not white, not grey, and not green, it must be blue/red debris from neighbors!
+            if not is_white and not is_grey and not is_green:
+                pixels[x, y] = (255, 255, 255, 255) # erase to white
                 
     # 3. Apply tight crop on the cleaned image
     cropped_tight = tight_crop(cropped)
@@ -106,7 +108,7 @@ def fix_netball():
     
     # 5. Save output
     transparent_img.save(out_path, "PNG")
-    print(f"Success! Saved basketball_netball.png with size {transparent_img.size}")
+    print(f"Success! Saved cleaned basketball_netball.png with size {transparent_img.size}")
 
 if __name__ == "__main__":
     fix_netball()
