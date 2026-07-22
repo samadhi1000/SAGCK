@@ -22,7 +22,7 @@ const DEPUTY_PRINCIPALS = [
     role: "Deputy Principal - Administration",
     quote: "Our goal is to maintain a seamless, safe, and resource-rich environment that supports our educators and students in their daily pursuits.",
     color: "border-l-accent",
-    image: "/images/deputy/hettiarachchi.png",
+    image: "/images/deputy/hettiarachchi.jpg",
   },
   {
     name: "Mrs. K. L. Gunawardena",
