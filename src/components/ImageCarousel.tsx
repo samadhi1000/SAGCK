@@ -119,10 +119,10 @@ const carouselImages: CarouselImage[] = [
   },
   {
     src: "/images/carousel/image1 (7).jpg",
-    alt: "School prefects in teal blazers standing in disciplined prayer and greeting formation",
-    category: "Leadership & Discipline",
-    title: "The Prefects' Respect",
-    description: "Collegiate student leaders in formal blazers offering traditional greetings during morning assembly."
+    alt: "School prefects in teal blazers with hands folded in traditional Buddhist morning devotion during assembly",
+    category: "Faith & Devotion",
+    title: "Morning Religious Observance",
+    description: "Collegiate student leaders joined in reverent morning devotion and spiritual mindfulness during assembly."
   },
   {
     src: "/images/carousel/image1 (8).jpg",
