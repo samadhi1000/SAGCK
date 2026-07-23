@@ -74,6 +74,62 @@ const carouselImages: CarouselImage[] = [
     category: "Ceremonial Events",
     title: "Guests of Honor Parade",
     description: "Distinguished guests, alumni, and school board members welcomed to the annual athletic meet."
+  },
+  {
+    src: "/images/carousel/image1 (1).jpg",
+    alt: "St. Anthony's Girls' College students cheering enthusiastically in house colors during the annual sports meet",
+    category: "Antonian Cheer",
+    title: "Echoes of House Pride",
+    description: "Students cheering passionately from the stands, painted in house colors to celebrate collegiate sportsmanship."
+  },
+  {
+    src: "/images/carousel/image1 (2).jpg",
+    alt: "Students performing traditional Kandyan classical dance in cream and gold attire on stage",
+    category: "Culture & Aesthetics",
+    title: "Graceful Heritage Motions",
+    description: "Students showcasing traditional Sri Lankan classical dance movements during an aesthetic festival."
+  },
+  {
+    src: "/images/carousel/image1 (3).jpg",
+    alt: "Performers in vibrant yellow and green traditional dance costumes with festive fans on stage",
+    category: "Cultural Harmony",
+    title: "Rhythms of Unity",
+    description: "A colorful stage performance illustrating the rich multicultural performing arts traditions of St. Anthony's."
+  },
+  {
+    src: "/images/carousel/image1 (4).jpg",
+    alt: "Primary students performing a synchronized mass outdoor dance routine in colorful dresses",
+    category: "Junior Celebrations",
+    title: "Color & Youthful Joy",
+    description: "Young Antonians performing a synchronized outdoor dance display surrounded by cheering peers."
+  },
+  {
+    src: "/images/carousel/image1 (5).jpg",
+    alt: "Collegiate traditional dance troupe posing gracefully in white ceremonial attire under palm trees",
+    category: "Cultural Troupe",
+    title: "Elegance Under the Palms",
+    description: "The college dance troupe posing in ceremonial white attire on the iconic campus grounds."
+  },
+  {
+    src: "/images/carousel/image1 (6).jpg",
+    alt: "Junior choir performing on stage in peach and white dresses under dramatic lighting beams",
+    category: "Vocal Ensemble",
+    title: "Harmonies of Light",
+    description: "Junior choir performing on stage under theatrical lighting during the annual musical concert."
+  },
+  {
+    src: "/images/carousel/image1 (7).jpg",
+    alt: "School prefects in teal blazers standing in disciplined prayer and greeting formation",
+    category: "Leadership & Discipline",
+    title: "The Prefects' Respect",
+    description: "Collegiate student leaders in formal blazers offering traditional greetings during morning assembly."
+  },
+  {
+    src: "/images/carousel/image1 (8).jpg",
+    alt: "St. Anthony's Girls' College cricket team celebrating a wicket in blue jerseys on the field",
+    category: "Cricket Champions",
+    title: "Victory Huddle & Passion",
+    description: "The girls' cricket team celebrating an exciting wicket fall on the field during the inter-school tournament."
   }
 ];
 
