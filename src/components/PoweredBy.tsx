@@ -115,91 +115,45 @@ export default function PoweredBy({
           Powered By
         </span>
 
-        <div className="flex items-start">
-          {/* Reusable Inline SVG Logo Icon (Self-contained, premium, 3D style stack) */}
-          <div className="transition-transform duration-300 group-hover:scale-105 flex-shrink-0 mr-1.5 mt-0.5">
-            <svg 
-              className={`w-9 h-9 ${isBrand ? "text-cyan" : "text-current"}`} 
-              viewBox="0 0 100 100" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <linearGradient id="su-cyan-gradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#22D3EE" />
-                  <stop offset="100%" stopColor="#06B6D4" />
-                </linearGradient>
-                <linearGradient id="su-orange-gradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#FF6B00" />
-                  <stop offset="100%" stopColor="#FFB800" />
-                </linearGradient>
-              </defs>
-              
-              {/* Layered Hex-Stack */}
-              <path 
-                d="M50 15 L80 30 L50 45 L20 30 Z" 
-                fill={isBrand ? "#334155" : "rgba(100, 116, 139, 0.2)"} 
-                stroke={isBrand ? "#475569" : "currentColor"} 
-                strokeWidth="0.8" 
-              />
-              <path 
-                d="M20 38 L50 53 L80 38 V46 L50 61 L20 46 Z" 
-                fill={isBrand ? "#1E293B" : "rgba(71, 85, 105, 0.3)"} 
-                stroke={isBrand ? "#334155" : "currentColor"} 
-                strokeWidth="0.8" 
-              />
-              <path 
-                d="M20 54 L50 69 L80 54 V62 L50 77 L20 62 Z" 
-                fill={isBrand ? "#0F172A" : "rgba(30, 41, 59, 0.4)"} 
-                stroke={isBrand ? "#1E293B" : "currentColor"} 
-                strokeWidth="0.8" 
-              />
-              
-              {/* Central Breakout Arrow Burst */}
-              <path 
-                d="M38 58 L54 42 H46 L62 26 L58 46 H66 L38 58 Z" 
-                fill={isBrand ? "url(#su-cyan-gradient)" : "currentColor"} 
-              />
-            </svg>
-          </div>
-
-          {/* Typography details */}
-          <div className="flex flex-col items-start leading-none pt-0.5">
-            <div className="flex flex-col w-full leading-none">
-              {/* STACK text block */}
-              <div
-                className={`w-full flex justify-between text-[11px] font-black leading-[0.85] tracking-widest ${
-                  isBrand ? "su-brand-stack" : "text-current"
-                }`}
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                <span>S</span><span>T</span><span>A</span><span>C</span><span>K</span>
-              </div>
-              
-              {/* UNLEASH text block */}
-              <span
-                className={`text-[10px] font-black tracking-tight leading-[0.85] mt-[1.5px] block whitespace-nowrap ${
-                  isBrand ? "su-brand-unleash" : "text-current opacity-90"
-                }`}
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                UNLEASH
-              </span>
-            </div>
-
-            {/* Subtitle taglines */}
+        {/* 
+         * Typography details 
+         * Placed directly adjacent to "Powered By" text without the intermediate SVG icon.
+         */}
+        <div className="flex flex-col items-start leading-none pt-0.5">
+          <div className="flex flex-col w-full leading-none">
+            {/* STACK text block */}
             <div
-              className={`w-full flex justify-between text-[3.8px] font-black uppercase mt-1 ${
-                isBrand ? "su-brand-shine" : "su-adaptive-shine"
+              className={`w-full flex justify-between text-[11px] font-black leading-[0.85] tracking-widest ${
+                isBrand ? "su-brand-stack" : "text-current"
               }`}
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
-              <span>BUILD</span>
-              <span>&bull;</span>
-              <span>AUTOMATE</span>
-              <span>&bull;</span>
-              <span>SCALE</span>
+              <span>S</span><span>T</span><span>A</span><span>C</span><span>K</span>
             </div>
+            
+            {/* UNLEASH text block */}
+            <span
+              className={`text-[10px] font-black tracking-tight leading-[0.85] mt-[1.5px] block whitespace-nowrap ${
+                isBrand ? "su-brand-unleash" : "text-current opacity-90"
+              }`}
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+            >
+              UNLEASH
+            </span>
+          </div>
+
+          {/* Subtitle taglines */}
+          <div
+            className={`w-full flex justify-between text-[3.8px] font-black uppercase mt-1 ${
+              isBrand ? "su-brand-shine" : "su-adaptive-shine"
+            }`}
+            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+          >
+            <span>BUILD</span>
+            <span>&bull;</span>
+            <span>AUTOMATE</span>
+            <span>&bull;</span>
+            <span>SCALE</span>
           </div>
         </div>
       </a>
