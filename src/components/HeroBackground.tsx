@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const HERO_IMAGES = [
   "/images/hero/hero-1.jpg",
@@ -16,6 +17,34 @@ export default function HeroBackground() {
   const [imageOpacity, setImageOpacity] = useState("opacity-50");
   const [overlayOpacity, setOverlayOpacity] = useState("opacity-95");
 
+  // ── 1. MOUSE PARALLAX SETUP ──
+  // Track relative mouse position normalized from -0.5 to 0.5 relative to the screen size
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth springs to eliminate jittery movement (stiffness & damping configure latency)
+  const springX = useSpring(mouseX, { stiffness: 60, damping: 25 });
+  const springY = useSpring(mouseY, { stiffness: 60, damping: 25 });
+
+  // PARALLAX INTENSITY: Translate values (currently -20px to 20px)
+  // Positive values translate in the opposite direction of the cursor for a depth effect.
+  const translateX = useTransform(springX, [-0.5, 0.5], [20, -20]);
+  const translateY = useTransform(springY, [-0.5, 0.5], [20, -20]);
+
+  // Effect: Listen to window mouse movement to calculate coordinate offsets
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const relativeX = (e.clientX / window.innerWidth) - 0.5;
+      const relativeY = (e.clientY / window.innerHeight) - 0.5;
+      mouseX.set(relativeX);
+      mouseY.set(relativeY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  // Existing cross-fading timeouts logic (original focus/dim intervals)
   useEffect(() => {
     let t1: NodeJS.Timeout;
     let t2: NodeJS.Timeout;
@@ -67,12 +96,19 @@ export default function HeroBackground() {
         aria-hidden="true" 
       />
 
-      {/* 2. Cross-fading Background Images */}
+      {/* 2. Cross-fading Background Images with Framer Motion Parallax and Ken Burns zoom */}
       {HERO_IMAGES.map((src, index) => {
         const isActive = index === activeIndex;
         return (
-          <div
+          <motion.div
             key={src}
+            style={{
+              x: translateX,
+              y: translateY,
+            }}
+            // KEN BURNS ZOOM EFFECT: Animates active image scale from 1.05 to 1.15 over 8.2s
+            animate={isActive ? { scale: [1.05, 1.15] } : { scale: 1.05 }}
+            transition={isActive ? { duration: 8.2, ease: "linear" } : { duration: 0.5 }}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
               isActive ? imageOpacity : "opacity-0"
             }`}
@@ -84,7 +120,7 @@ export default function HeroBackground() {
               priority={index === 0}
               className="object-cover"
             />
-          </div>
+          </motion.div>
         );
       })}
       

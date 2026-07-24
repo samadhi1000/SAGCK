@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import Particles from "@/components/Particles";
 import HistoryTimeline from "@/components/HistoryTimeline";
 import ImageCarousel from "@/components/ImageCarousel";
@@ -11,6 +12,34 @@ import ClubsSection from "@/components/ClubsSection";
 import SportsSection from "@/components/SportsSection";
 import NewsSection from "@/components/NewsSection";
 import Preloader from "@/components/Preloader";
+
+/* 
+ * ── FRAMER MOTION ANIMATION VARIANTS ── 
+ * Staggered entrance animations for the Hero Section elements.
+ */
+const heroContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15, // Delay between consecutive item entrances (seconds)
+      delayChildren: 0.3,    // Delay before the first element begins animating in
+    },
+  },
+};
+
+const heroItemVariants = {
+  hidden: { opacity: 0, y: 25, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1] as const, // Cast as const to assure TS it is a tuple of 4 numbers
+    },
+  },
+};
 
 export default function Home() {
   /*
@@ -119,14 +148,21 @@ export default function Home() {
         <Particles />
 
         {/* 
-         * Hero main content container with scale-up and fade-in transitions.
-         * Activates immediately when the preloader transitions isLoaded to true.
+         * Hero main content container with Framer Motion staggered entrance animations.
+         * Initially stays hidden and triggers when page preloading completes.
+         * The wrapper remains in the DOM for SEO indexability while styling opacity dynamically.
          */}
-        <div className={`relative z-10 max-w-5xl mx-auto text-center space-y-8 transition-all duration-[1200ms] cubic-bezier(0.16, 1, 0.3, 1) transform ${
-          isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-[0.97]"
-        }`}>
+        <motion.div
+          variants={heroContainerVariants}
+          initial="hidden"
+          animate={isLoaded ? "visible" : "hidden"}
+          className="relative z-10 max-w-5xl mx-auto text-center space-y-8"
+        >
           {/* Motto Display */}
-          <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-inner">
+          <motion.div 
+            variants={heroItemVariants}
+            className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-inner"
+          >
             <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse motion-reduce:animate-none" aria-hidden="true" />
             <span className="font-sans text-xs md:text-sm font-bold uppercase tracking-widest text-accent">
               Virtus et Scientia
@@ -135,10 +171,13 @@ export default function Home() {
             <span className="font-sans text-xs md:text-sm font-semibold tracking-wider text-neutral-light">
               Power & Knowledge
             </span>
-          </div>
+          </motion.div>
 
           {/* Glowing Headings */}
-          <div className="space-y-4 hero-glow-container">
+          <motion.div 
+            variants={heroItemVariants}
+            className="space-y-4 hero-glow-container"
+          >
             <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-gradient-hero leading-tight pb-3">
               St. Anthony's <br className="sm:hidden" />
               <span>Girls' College</span>
@@ -146,10 +185,13 @@ export default function Home() {
             <p className="max-w-2xl mx-auto font-sans text-base sm:text-xl text-neutral-light leading-relaxed text-glow-hero">
               Nurturing virtuous, resilient, and educated female leaders in the hill capital of Kandy for over 88 years.
             </p>
-          </div>
+          </motion.div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+          <motion.div 
+            variants={heroItemVariants}
+            className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4"
+          >
             <a
               href="#clubs"
               className="w-full sm:w-auto px-8 py-4 rounded bg-accent hover:bg-accent-hover text-secondary font-sans text-base font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-center focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 motion-reduce:transform-none"
@@ -162,8 +204,8 @@ export default function Home() {
             >
               Explore Our History
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Scroll Guide Indicator */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-1 text-white/50 hover:text-white/90 transition-colors pointer-events-none" aria-hidden="true">
