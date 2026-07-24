@@ -105,6 +105,8 @@ export default function HeroBackground() {
             style={{
               x: translateX,
               y: translateY,
+              z: 0,                   // Force 3D hardware translation to promote element to GPU
+              willChange: "transform" // Notify browser to optimize paint/composite layer for animations
             }}
             // KEN BURNS ZOOM EFFECT: Animates active image scale from 1.05 to 1.15 over 8.2s
             animate={isActive ? { scale: [1.05, 1.15] } : { scale: 1.05 }}
