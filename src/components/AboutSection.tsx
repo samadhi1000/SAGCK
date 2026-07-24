@@ -16,34 +16,31 @@ const INDEX_ITEMS: IndexItem[] = [
   { id: "history", label: "Historical Timeline", num: "04" },
 ];
 
+/* 
+ * ── DEPUTY PRINCIPALS DATA ──
+ * Updated with the official names and roles of the school administration.
+ */
 const DEPUTY_PRINCIPALS = [
   {
-    name: "Mrs. M. H. Hettiarachchi",
-    role: "Deputy Principal - Administration",
+    name: "Mrs. M.S. Hettiarachchi",
+    role: "Deputy Principal - Education & Administration",
     quote: "Our goal is to maintain a seamless, safe, and resource-rich environment that supports our educators and students in their daily pursuits.",
     color: "border-l-accent",
     image: "/images/deputy/hettiarachchi.jpg",
   },
   {
-    name: "Mrs. K. L. Gunawardena",
-    role: "Deputy Principal - Academics",
+    name: "Mr. R.M.S.S.K. Yapa",
+    role: "Deputy Principal - Education Development",
     quote: "We strive to implement an engaging, modern curriculum that cultivates critical thinking, analytical depth, and academic brilliance in every student.",
     color: "border-l-primary",
     image: "/images/deputy/deputy-2.png",
   },
   {
-    name: "Mrs. S. Rajapakse",
-    role: "Deputy Principal - Co-Curricular",
-    quote: "Extracurricular activities build character. We offer over 50 sports and societies to develop holistic leadership and teamwork in every Antonian.",
+    name: "Mrs. S.P. Sudarshani",
+    role: "Deputy Principal",
+    quote: "Nurturing character, discipline, and well-rounded co-curricular excellence to prepare our girls for future success.",
     color: "border-l-accent",
     image: "/images/deputy/deputy-3.png",
-  },
-  {
-    name: "Mrs. J. M. Wijesinghe",
-    role: "Deputy Principal - Discipline & Welfare",
-    quote: "Character and discipline are the foundations of science. We foster a culture of mutual respect, civic responsibility, and high moral integrity.",
-    color: "border-l-primary",
-    image: "/images/deputy/deputy-4.png",
   },
 ];
 
