@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Particles from "@/components/Particles";
 import HistoryTimeline from "@/components/HistoryTimeline";
@@ -9,10 +10,25 @@ import HeroBackground from "@/components/HeroBackground";
 import ClubsSection from "@/components/ClubsSection";
 import SportsSection from "@/components/SportsSection";
 import NewsSection from "@/components/NewsSection";
+import Preloader from "@/components/Preloader";
 
 export default function Home() {
+  /*
+   * ── SITE MOUNT & LOADING STATE ──
+   * isLoaded is set to true once the preloader typing animation finishes.
+   * This is used to trigger fade-in animations on the hero content elements.
+   */
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
-    <main id="main-content" className="flex-grow overflow-x-hidden">
+    <>
+      {/* 
+       * Render the preloader overlay if the site is not fully loaded.
+       * The onComplete callback is triggered when the typewriter finishes typing and the preloader fades out.
+       */}
+      {!isLoaded && <Preloader onComplete={() => setIsLoaded(true)} />}
+
+      <main id="main-content" className="flex-grow overflow-x-hidden">
       
       {/* 0. Infinite Scrolling Ticker Stripe between Header and Hero */}
       <div className="relative w-full bg-secondary text-accent overflow-hidden py-2 border-b border-accent/20 z-20 select-none shadow-sm">
@@ -102,7 +118,13 @@ export default function Home() {
         {/* Background Particles */}
         <Particles />
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+        {/* 
+         * Hero main content container with scale-up and fade-in transitions.
+         * Activates immediately when the preloader transitions isLoaded to true.
+         */}
+        <div className={`relative z-10 max-w-5xl mx-auto text-center space-y-8 transition-all duration-[1200ms] cubic-bezier(0.16, 1, 0.3, 1) transform ${
+          isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-[0.97]"
+        }`}>
           {/* Motto Display */}
           <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-inner">
             <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse motion-reduce:animate-none" aria-hidden="true" />
@@ -474,5 +496,7 @@ export default function Home() {
         </div>
       </footer>
     </main>
+    {/* ── END OF PRELOADER LAYOUT WRAPPER ── */}
+    </>
   );
 }

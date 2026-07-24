@@ -233,5 +233,35 @@ body {
   }
 }
 
+/* 
+ * ── PRELOADER & INTRO SCREEN TRANSITIONS ── 
+ * Added for the premium gold-on-blue typing motto animation.
+ */
+
+/* Keyframe animation for a realistic blinking terminal/typewriter cursor */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Class to apply the blinking animation to the cursor element */
+.animate-cursor-blink {
+  animation: cursor-blink 0.8s step-end infinite;
+}
+
+/* Utility to lock scrolling on body and html while preloader is active */
+.lock-scroll {
+  overflow: hidden !important;
+  height: 100% !important;
+  width: 100% !important;
+  position: fixed !important;
+}
+
+/* Helper transition styles to scale in content when page finishes loading */
+.hero-content-transition {
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
 
 

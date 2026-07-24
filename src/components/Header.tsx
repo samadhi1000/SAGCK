@@ -16,6 +16,34 @@ const NAV_ITEMS = [
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  
+  /* 
+   * ── PRELOADER TRANSITION STATE MANAGEMENT ──
+   * keeps the header hidden while the preloader is running to prevent visual clutter.
+   * Slides the header down elegantly once the site-loaded event is fired.
+   */
+  const [isLoaded, setIsLoaded] = useState(true);
+
+  useEffect(() => {
+    // Check if the scroll-lock class is present, which signifies the preloader is running
+    const isPreloaderActive = document.documentElement.classList.contains("lock-scroll");
+    
+    if (isPreloaderActive) {
+      // Start with header hidden (translated out of viewport)
+      setIsLoaded(false);
+      
+      // Listener to reveal header on custom preloader finish event
+      const handleSiteLoaded = () => {
+        setIsLoaded(true);
+      };
+      
+      window.addEventListener("site-loaded", handleSiteLoaded);
+      return () => window.removeEventListener("site-loaded", handleSiteLoaded);
+    } else {
+      // If preloader is bypassed/disabled, show header immediately
+      setIsLoaded(true);
+    }
+  }, []);
 
   // Track active section on scroll
   useEffect(() => {
@@ -40,7 +68,9 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-primary/10 shadow-sm transition-all duration-200">
+    <header className={`sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-primary/10 shadow-sm transition-all duration-[1000ms] ease-out transform ${
+      isLoaded ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           
