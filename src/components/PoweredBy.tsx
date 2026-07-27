@@ -13,6 +13,10 @@ interface PoweredByProps {
    */
   href?: string;
   /**
+   * Path to the logo icon image. Defaults to '/images/logo-icon.png'.
+   */
+  logoSrc?: string;
+  /**
    * Layout alignment. Defaults to 'center'.
    */
   align?: "left" | "center" | "right";
@@ -25,6 +29,7 @@ interface PoweredByProps {
 export default function PoweredBy({
   theme = "brand",
   href = "https://stackunleash.com",
+  logoSrc = "/images/logo-icon.png",
   align = "center",
   className = "",
 }: PoweredByProps) {
@@ -115,45 +120,55 @@ export default function PoweredBy({
           Powered By
         </span>
 
-        {/* 
-         * Typography details 
-         * Placed directly adjacent to "Powered By" text without the intermediate SVG icon.
-         */}
-        <div className="flex flex-col items-start leading-none pt-0.5">
-          <div className="flex flex-col w-full leading-none">
-            {/* STACK text block */}
-            <div
-              className={`w-full flex justify-between text-[11px] font-black leading-[0.85] tracking-widest ${
-                isBrand ? "su-brand-stack" : "text-current"
+        <div className="flex items-start">
+          {/* Real Stack Unleash Logo Icon Image */}
+          <div className="transition-transform duration-300 group-hover:scale-105 flex-shrink-0 mr-1.5 mt-0.5">
+            <img 
+              src={logoSrc} 
+              alt="Stack Unleash Logo Icon" 
+              className={`w-9 h-9 object-contain transition-all duration-300 ${
+                isBrand ? "" : "grayscale opacity-50 brightness-150 contrast-75 group-hover:opacity-100 group-hover:grayscale-0"
               }`}
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              <span>S</span><span>T</span><span>A</span><span>C</span><span>K</span>
-            </div>
-            
-            {/* UNLEASH text block */}
-            <span
-              className={`text-[10px] font-black tracking-tight leading-[0.85] mt-[1.5px] block whitespace-nowrap ${
-                isBrand ? "su-brand-unleash" : "text-current opacity-90"
-              }`}
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-            >
-              UNLEASH
-            </span>
+            />
           </div>
 
-          {/* Subtitle taglines */}
-          <div
-            className={`w-full flex justify-between text-[3.8px] font-black uppercase mt-1 ${
-              isBrand ? "su-brand-shine" : "su-adaptive-shine"
-            }`}
-            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            <span>BUILD</span>
-            <span>&bull;</span>
-            <span>AUTOMATE</span>
-            <span>&bull;</span>
-            <span>SCALE</span>
+          {/* Typography details */}
+          <div className="flex flex-col items-start leading-none pt-0.5">
+            <div className="flex flex-col w-full leading-none">
+              {/* STACK text block */}
+              <div
+                className={`w-full flex justify-between text-[11px] font-black leading-[0.85] tracking-widest ${
+                  isBrand ? "su-brand-stack" : "text-current"
+                }`}
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                <span>S</span><span>T</span><span>A</span><span>C</span><span>K</span>
+              </div>
+              
+              {/* UNLEASH text block */}
+              <span
+                className={`text-[10px] font-black tracking-tight leading-[0.85] mt-[1.5px] block whitespace-nowrap ${
+                  isBrand ? "su-brand-unleash" : "text-current opacity-90"
+                }`}
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                UNLEASH
+              </span>
+            </div>
+
+            {/* Subtitle taglines */}
+            <div
+              className={`w-full flex justify-between text-[3.8px] font-black uppercase mt-1 ${
+                isBrand ? "su-brand-shine" : "su-adaptive-shine"
+              }`}
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+            >
+              <span>BUILD</span>
+              <span>&bull;</span>
+              <span>AUTOMATE</span>
+              <span>&bull;</span>
+              <span>SCALE</span>
+            </div>
           </div>
         </div>
       </a>
